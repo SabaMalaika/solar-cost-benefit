@@ -649,6 +649,8 @@ export default function SolarFieldMockup({ onShowChart, onShowMaintenance }) {
                         </div>
                       ))}
                     </div>
+                    <a href="https://www.manchester.ac.uk/about/news/university-of-manchester-powers-up-brand-new-solar-farm-delivering-clean-energy-to-campus/" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-block', marginTop: 16, color: '#fe470d', fontSize: 12, textDecoration: 'none', borderBottom: '1px solid rgba(254,71,13,0.35)', paddingBottom: 1 }}>
+                      Source: University of Manchester ↗</a>
                   </div>
                 ),
               },
