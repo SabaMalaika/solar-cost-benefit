@@ -91,6 +91,7 @@ export default function SolarFieldMockup({ onShowChart, onShowMaintenance }) {
   const sceneRef = useRef({});
   const [tourActive, setTourActive] = useState(false);
   const [infoOpen, setInfoOpen] = useState(false);
+  const [infoSlide, setInfoSlide] = useState(0);
   const [tourStop, setTourStop] = useState(0);
   const [transitioning, setTransitioning] = useState(false);
   const [panelFading, setPanelFading] = useState(false);
@@ -630,23 +631,103 @@ export default function SolarFieldMockup({ onShowChart, onShowMaintenance }) {
             </div>
           </div>
 
-          {infoOpen && (
-            <div style={{ position: 'absolute', top: 'calc(100% + 10px)', left: 0, width: 370, background: 'rgba(8,12,10,0.96)', backdropFilter: 'blur(14px)', border: '1px solid rgba(254,71,13,0.22)', borderRadius: 12, padding: '20px 22px 18px', color: '#dde8e2', lineHeight: 1.72, fontSize: 13, boxShadow: '0 10px 40px rgba(0,0,0,0.7)', zIndex: 10 }}>
-              <button onClick={() => setInfoOpen(false)} style={{ position: 'absolute', top: 10, right: 14, background: 'none', border: 'none', color: 'rgba(255,255,255,0.35)', fontSize: 20, cursor: 'pointer', lineHeight: 1 }}>×</button>
-              <p style={{ margin: '0 0 11px' }}>
-                Construction commenced in <strong>April 2024</strong>. The site spans <strong>175 acres</strong> (~<strong>70 football pitches</strong>) and comprises around <strong>104,000 solar panels</strong>, generating over <strong>72 GWh</strong> of electricity annually.
-              </p>
-              <p style={{ margin: '0 0 11px' }}>
-                <strong>80% (58 GWh)</strong> is purchased directly by the University over the next decade, cutting emissions by <strong>12,000 tonnes of CO₂e per year</strong> — enough to power <strong>21,000 homes</strong>.
-              </p>
-              <p style={{ margin: '0 0 13px', color: '#fe470d', fontSize: 12.5, fontWeight: 500 }}>
-                Sceptics ask: does solar actually deliver? Here it does. Unwanted land, active grazing preserved, and a locked 10-year clean energy deal — no intermittency risk, no food production lost.
-              </p>
-              <a href="https://www.manchester.ac.uk/about/news/university-of-manchester-powers-up-brand-new-solar-farm-delivering-clean-energy-to-campus/" target="_blank" rel="noopener noreferrer" style={{ color: '#fe470d', fontSize: 11.5, textDecoration: 'none', opacity: 0.85 }}>
-                Source: University of Manchester ↗
-              </a>
-            </div>
-          )}
+          {infoOpen && (() => {
+            const slides = [
+              {
+                label: '1 — The farm',
+                content: (
+                  <div>
+                    <p style={{ margin: '0 0 12px', fontSize: 14, lineHeight: 1.75 }}>
+                      This is <strong>Medbridge</strong> — a solar farm in Ockendon, Essex, built for one purpose: to power the University of Manchester with clean, traceable energy for the next decade.
+                    </p>
+                    <p style={{ margin: '0 0 12px', fontSize: 14, lineHeight: 1.75 }}>Construction began <strong>April 2024</strong>.</p>
+                    <div style={{ display: 'flex', gap: 12, marginTop: 16 }}>
+                      {[['175', 'acres'], ['70', 'football pitches'], ['104,000', 'panels']].map(([n, l]) => (
+                        <div key={l} style={{ flex: 1, background: 'rgba(254,71,13,0.1)', border: '1px solid rgba(254,71,13,0.25)', borderRadius: 8, padding: '12px 10px', textAlign: 'center' }}>
+                          <div style={{ fontSize: 22, fontWeight: 800, color: '#fe470d' }}>{n}</div>
+                          <div style={{ fontSize: 11, opacity: 0.7, marginTop: 3 }}>{l}</div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ),
+              },
+              {
+                label: '2 — The numbers',
+                content: (
+                  <div>
+                    {[
+                      ['72 GWh', 'generated every year'],
+                      ['80% / 58 GWh', 'bought directly by the University'],
+                      ['12,000 t CO₂e', 'cut from carbon footprint annually'],
+                      ['21,000 homes', 'equivalent energy powered'],
+                    ].map(([n, l]) => (
+                      <div key={n} style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '11px 0', borderBottom: '1px solid rgba(255,255,255,0.07)' }}>
+                        <div style={{ fontSize: 17, fontWeight: 800, color: '#fe470d', minWidth: 130 }}>{n}</div>
+                        <div style={{ fontSize: 13, opacity: 0.75, lineHeight: 1.5 }}>{l}</div>
+                      </div>
+                    ))}
+                    <p style={{ margin: '14px 0 0', fontSize: 12, opacity: 0.55, fontStyle: 'italic' }}>Not an estimate. A contracted commitment.</p>
+                  </div>
+                ),
+              },
+              {
+                label: '3 — The reaction',
+                content: (
+                  <div>
+                    <p style={{ margin: '0 0 14px', fontSize: 13, opacity: 0.7 }}>Not everyone was convinced.</p>
+                    {[
+                      { name: 'Michael Hobbs', role: 'Founder, consultant, technologist', quote: 'I\'d love to see the cost-benefit equation for this move. The environmental costs are roughly: manufacturing solar panels; maintaining solar panels; replacement land for food production.' },
+                      { name: 'John Rowland', role: 'Fellow, Institute of Mathematics', quote: 'Big mistake. The country needs reliable sources of energy. And a blot on the farming landscape.' },
+                      { name: 'John Channing', role: 'Managing Director, CTO', quote: 'Has covering 175 acres in solar panels meant the loss of productive farm land? Why aren\'t solar panels being installed on University buildings instead?' },
+                      { name: 'Nigel Smart', role: 'PhD, Pharma & Manufacturing', quote: 'I have 32 panels on my roof which makes more sense than wasting land!' },
+                    ].map(({ name, role, quote }) => (
+                      <div key={name} style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 8, padding: '10px 12px', marginBottom: 8 }}>
+                        <div style={{ fontWeight: 700, fontSize: 12, color: '#fff' }}>{name}</div>
+                        <div style={{ fontSize: 10.5, opacity: 0.45, marginBottom: 6 }}>{role}</div>
+                        <div style={{ fontSize: 12, lineHeight: 1.55, opacity: 0.8, fontStyle: 'italic' }}>"{quote}"</div>
+                      </div>
+                    ))}
+                  </div>
+                ),
+              },
+              {
+                label: '4 — This project',
+                content: (
+                  <div>
+                    <p style={{ margin: '0 0 14px', fontSize: 14, lineHeight: 1.75 }}>
+                      Manufacturing footprint. Maintenance cost. Land quality. Biodiversity. All of it — <strong>open, sourced, and shown.</strong>
+                    </p>
+                    <p style={{ margin: '0 0 18px', fontSize: 14, lineHeight: 1.75, color: '#fe470d', fontWeight: 500 }}>
+                      This isn't a celebration. It's an audit. And the numbers hold up.
+                    </p>
+                    <a href="https://www.manchester.ac.uk/about/news/university-of-manchester-powers-up-brand-new-solar-farm-delivering-clean-energy-to-campus/" target="_blank" rel="noopener noreferrer" style={{ color: '#fe470d', fontSize: 12, textDecoration: 'none', borderBottom: '1px solid rgba(254,71,13,0.35)', paddingBottom: 1 }}>
+                      Source: University of Manchester ↗
+                    </a>
+                  </div>
+                ),
+              },
+            ];
+            return (
+              <div style={{ position: 'absolute', top: 'calc(100% + 10px)', left: 0, width: 460, background: 'rgba(8,12,10,0.97)', backdropFilter: 'blur(16px)', border: '1px solid rgba(254,71,13,0.22)', borderRadius: 14, padding: '24px 26px 20px', color: '#dde8e2', boxShadow: '0 12px 48px rgba(0,0,0,0.75)', zIndex: 10 }}>
+                <button onClick={() => { setInfoOpen(false); setInfoSlide(0); }} style={{ position: 'absolute', top: 12, right: 16, background: 'none', border: 'none', color: 'rgba(255,255,255,0.35)', fontSize: 20, cursor: 'pointer', lineHeight: 1 }}>×</button>
+                {/* Slide label */}
+                <div style={{ fontSize: 11, letterSpacing: 1, color: '#fe470d', opacity: 0.75, textTransform: 'uppercase', marginBottom: 14, fontWeight: 600 }}>{slides[infoSlide].label}</div>
+                {/* Slide content */}
+                <div style={{ minHeight: 220 }}>{slides[infoSlide].content}</div>
+                {/* Nav */}
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 20, paddingTop: 16, borderTop: '1px solid rgba(255,255,255,0.08)' }}>
+                  <button onClick={() => setInfoSlide(s => Math.max(0, s - 1))} disabled={infoSlide === 0} style={{ background: 'none', border: '1px solid rgba(255,255,255,0.18)', borderRadius: 20, padding: '6px 14px', color: '#fff', fontSize: 12, cursor: infoSlide === 0 ? 'default' : 'pointer', opacity: infoSlide === 0 ? 0.25 : 0.8, fontFamily: FF }}>← Back</button>
+                  <div style={{ display: 'flex', gap: 6 }}>
+                    {slides.map((_, i) => (
+                      <div key={i} onClick={() => setInfoSlide(i)} style={{ width: 6, height: 6, borderRadius: '50%', background: i === infoSlide ? '#fe470d' : 'rgba(255,255,255,0.2)', cursor: 'pointer', transition: 'background 0.2s' }} />
+                    ))}
+                  </div>
+                  <button onClick={() => setInfoSlide(s => Math.min(slides.length - 1, s + 1))} disabled={infoSlide === slides.length - 1} style={{ background: infoSlide === slides.length - 1 ? 'none' : '#fe470d', border: infoSlide === slides.length - 1 ? '1px solid rgba(255,255,255,0.18)' : 'none', borderRadius: 20, padding: '6px 14px', color: '#fff', fontSize: 12, cursor: infoSlide === slides.length - 1 ? 'default' : 'pointer', opacity: infoSlide === slides.length - 1 ? 0.25 : 1, fontFamily: FF }}>Next →</button>
+                </div>
+              </div>
+            );
+          })()}
         </div>
       )}
 
