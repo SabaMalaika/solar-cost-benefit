@@ -703,9 +703,6 @@ export default function SolarFieldMockup({ onShowChart, onShowMaintenance }) {
                     <p style={{ margin: '0 0 18px', fontSize: 14, lineHeight: 1.75, color: '#fe470d', fontWeight: 500 }}>
                       This project is an audit to quell those fears and doubts with verifiable information.
                     </p>
-                    <a href="https://www.manchester.ac.uk/about/news/university-of-manchester-powers-up-brand-new-solar-farm-delivering-clean-energy-to-campus/" target="_blank" rel="noopener noreferrer" style={{ color: '#fe470d', fontSize: 12, textDecoration: 'none', borderBottom: '1px solid rgba(254,71,13,0.35)', paddingBottom: 1 }}>
-                      Source: University of Manchester ↗
-                    </a>
                   </div>
                 ),
               },
