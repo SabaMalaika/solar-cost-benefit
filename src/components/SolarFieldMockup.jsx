@@ -675,7 +675,7 @@ export default function SolarFieldMockup({ onShowChart, onShowMaintenance }) {
                 label: '3 — The reaction',
                 content: (
                   <div>
-                    <p style={{ margin: '0 0 14px', fontSize: 13, opacity: 0.7 }}>Not everyone was convinced.</p>
+                    <p style={{ margin: '0 0 14px', fontSize: 13, opacity: 0.7 }}>Not everyone was convinced. <a href="https://www.linkedin.com/posts/renewable-ugcPost-7366077643273687040-1_UP/?utm_source=share&utm_medium=member_desktop&rcm=ACoAADME8TUBV29CIWn1Av5RntdfcPFBz23_vjk" target="_blank" rel="noopener noreferrer" style={{ color: '#fe470d', textDecoration: 'none', fontSize: 11 }}>View post ↗</a></p>
                     {[
                       { name: 'Michael Hobbs', role: 'Founder, consultant, technologist', quote: 'I\'d love to see the cost-benefit equation for this move. The environmental costs are roughly: manufacturing solar panels; maintaining solar panels; replacement land for food production.' },
                       { name: 'John Rowland', role: 'Fellow, Institute of Mathematics', quote: 'Big mistake. The country needs reliable sources of energy. And a blot on the farming landscape.' },
@@ -784,9 +784,9 @@ export default function SolarFieldMockup({ onShowChart, onShowMaintenance }) {
 
       {!tourActive && (
         <div style={{ position: 'absolute', bottom: 32, left: '50%', transform: 'translateX(-50%)', display: 'flex', gap: 12, whiteSpace: 'nowrap' }}>
+          <button onClick={startTour} style={btnBase}>Land viability →</button>
           {onShowChart && <button onClick={onShowChart} style={btnBase}>Solar lifetime cost v/s gas and coal →</button>}
           {onShowMaintenance && <button onClick={onShowMaintenance} style={btnBase}>Maintenance of solar comparison →</button>}
-          <button onClick={startTour} style={btnBase}>Land viability →</button>
         </div>
       )}
 
